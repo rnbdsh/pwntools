@@ -1,6 +1,7 @@
 from __future__ import division
+from __future__ import absolute_import
 
-import random_funcs
+import pwnlib.encoders.arm.alphanumeric.random_funcs
 
 # +------------------------------------------------------------------------+ 
 # |                    ALPHANUMERIC MANIPULATIONS FUNCTIONS                | 

@@ -1,7 +1,9 @@
+from __future__ import absolute_import
 from __future__ import division
-import alphanum_byte
-import ARM_Instructions
-import random_funcs
+
+import pwnlib.encoders.arm.alphanumeric.alphanum_byte
+import pwnlib.encoders.arm.alphanumeric.ARM_Instructions
+import pwnlib.encoders.arm.alphanumeric.random_funcs
 
 #+---------------------------------------------------+*/
 #|                Builder Functions                  |*/

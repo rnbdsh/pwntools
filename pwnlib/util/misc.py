@@ -5,6 +5,7 @@ import errno
 import os
 import platform
 import re
+import six
 import socket
 import stat
 import string
@@ -125,6 +126,7 @@ def write(path, data = b'', create_dir = False, mode = 'w'):
     if create_dir:
         path = os.path.realpath(path)
         mkdir_p(os.path.dirname(path))
+    if mode == 'w' and isinstance(data, six.binary_type): mode += 'b'
     with open(path, mode) as f:
         f.write(data)
 

@@ -18,8 +18,8 @@ from __future__ import division
 import datetime
 import json
 import os
+import six
 import time
-import xmlrpclib
 
 import packaging.version
 
@@ -45,7 +45,7 @@ def available_on_pypi(prerelease=current_version.is_prerelease):
     >>> available_on_pypi(prerelease=False).is_prerelease
     False
     """
-    client = xmlrpclib.ServerProxy('https://pypi.python.org/pypi')
+    client = six.moves.xmlrpc_client.ServerProxy('https://pypi.python.org/pypi')
     versions = client.package_releases('pwntools', True)
     versions = map(packaging.version.Version, versions)
 
@@ -103,7 +103,7 @@ def perform_check(prerelease=current_version.is_prerelease):
 
     >>> from packaging.version import Version
     >>> pwnlib.update.current_version = Version("999.0.0")
-    >>> print perform_check()
+    >>> print(perform_check())
     None
     >>> pwnlib.update.current_version = Version("0.0.0")
     >>> perform_check() # doctest: +ELLIPSIS

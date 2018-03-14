@@ -517,6 +517,10 @@ class Handler(logging.StreamHandler):
         level = logging.getLogger(record.name).getEffectiveLevel()
         if level == 1:
             level = context.log_level
+        try:
+            level > record.levelno
+        except TypeError:
+            raise TypeError('{!r} > {!r}', level, record.levelno)
         if level > record.levelno:
             return
 
