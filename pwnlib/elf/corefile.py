@@ -69,7 +69,6 @@ import glob
 import gzip
 import re
 import os
-import six
 import socket
 import tempfile
 

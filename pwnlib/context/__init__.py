@@ -906,7 +906,7 @@ class ContextType(object):
             >>> open('bar.txt').readlines()[-1] #doctest: +ELLIPSIS
             '...:DEBUG:...:Hello from bar!\n'
         """
-        if isinstance(value, (six.binary_type, six.text_type)):
+        if isinstance(value, (bytes, six.text_type)):
             modes = ('w', 'wb', 'a', 'ab')
             # check if mode was specified as "[value],[mode]"
             if ',' not in value:
@@ -1049,7 +1049,7 @@ class ContextType(object):
         Can be a string or an iterable of strings.  In the latter case the first
         entry is the terminal and the rest are default arguments.
         """
-        if isinstance(value, (six.binary_type, six.text_type)):
+        if isinstance(value, (bytes, six.text_type)):
             return [value]
         return value
 
@@ -1265,7 +1265,7 @@ class ContextType(object):
         if len(set(alphabet)) != len(alphabet):
             raise AttributeError("cyclic alphabet cannot contain duplicates")
 
-        return six.b(alphabet)
+        return alphabet.encode()
 
     @_validator
     def cyclic_size(self, size):

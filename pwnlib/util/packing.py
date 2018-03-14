@@ -149,7 +149,7 @@ def pack(number, word_size = None, endianness = None, sign = None, **kwargs):
         out = []
 
         for _ in range(byte_size):
-            out.append(six.int2byte(number & 0xff))
+            out.append(p8(number & 0xff))
             number = number >> 8
 
         if endianness == 'little':

@@ -9,7 +9,7 @@ import re
 import os
 import six
 import string
-from six.moves import StringIO
+from six.moves import BytesIO
 
 from pwnlib.context import context
 from pwnlib.log import getLogger
@@ -315,7 +315,7 @@ def xor(*args, **kwargs):
         raise ValueError("Must have something to xor")
 
     strs = [packing.flat(s, word_size = 8, sign = False, endianness = 'little') for s in args]
-    strs = [bytearray(s) for s in strs if s != '']
+    strs = [bytearray(s) for s in strs if s]
 
     if strs == []:
         return b''
@@ -365,6 +365,7 @@ def xor_pair(data, avoid = b'\x00\n'):
     if not isinstance(avoid, bytes):
         avoid = avoid.encode('utf-8')
 
+    avoid = bytearray(avoid)
     alphabet = list(packing.p8(n) for n in range(256) if n not in avoid)
 
     res1 = b''
@@ -920,7 +921,7 @@ def hexdump(s, width=16, skip=True, hexii=False, begin=0,
         00000018
     """
     s = packing.flat(s)
-    return '\n'.join(hexdump_iter(StringIO(s),
+    return '\n'.join(hexdump_iter(BytesIO(s),
                                   width,
                                   skip,
                                   hexii,
