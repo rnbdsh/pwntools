@@ -1723,7 +1723,7 @@ class ELF(ELFFile):
             A ``str`` with the string contents (NUL terminator is omitted),
             or an empty string if no NUL terminator could be found.
         """
-        data = ''
+        data = b''
         while True:
             read_size = 0x1000
             partial_page = address & 0xfff
@@ -1734,7 +1734,7 @@ class ELF(ELFFile):
             c = self.read(address, read_size)
 
             if not c:
-                return ''
+                return b''
 
             data += c
 
