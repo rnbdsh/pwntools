@@ -1,9 +1,11 @@
 from __future__ import absolute_import
 from __future__ import division
 
-import pwnlib.encoders.arm.alphanumeric.alphanum_byte
-import pwnlib.encoders.arm.alphanumeric.ARM_Instructions
-import pwnlib.encoders.arm.alphanumeric.random_funcs
+from pwnlib.encoders.arm.alphanumeric import alphanum_byte
+from pwnlib.encoders.arm.alphanumeric import ARM_Instructions
+from pwnlib.encoders.arm.alphanumeric import random_funcs
+
+import six
 
 #+---------------------------------------------------+*/
 #|                Builder Functions                  |*/
@@ -40,13 +42,12 @@ class builder:
       arr = [1,2,3,4,5,6,7,8,9]
       self.I = random_funcs.randel(arr)
       p = 0
-      for p in range(len(input)):
-         ab = input[p]
-         b = ord(ab) & 0x0f
+      for p, ab in enumerate(six.iterbytes(input)):
+         b = ab & 0x0f
          e0 = random_funcs.enc_data_msn(b, self.I)
          e0 = e0 << 4
          ef = e0 | b
-         d = ((ord(ab) & 0xf0) ^ e0) >> 4
+         d = ((ab & 0xf0) ^ e0) >> 4
          c0 = random_funcs.enc_data_msn(d, self.I) << 4
          cd = c0 | d
          output += chr(cd & 0xff)

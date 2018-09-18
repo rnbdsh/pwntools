@@ -41,12 +41,12 @@ class ArmEncoder(Encoder):
         finally:
             random.setstate(state)
 
-        return output
+        return output.encode()
 
 class ThumbEncoder(ArmEncoder):
     arch = 'thumb'
 
-    to_thumb = '\x01\x30\x8f\xe2\x13\xff\x2f\xe1'
+    to_thumb = b'\x01\x30\x8f\xe2\x13\xff\x2f\xe1'
 
     def __call__(self, input, avoid, pcreg=None):
         return super(ThumbEncoder, self).__call__(self.to_thumb + input, avoid, pcreg)
