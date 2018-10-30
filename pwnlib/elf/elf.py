@@ -219,7 +219,7 @@ class ELF(ELFFile):
         #:
         #: See: :attr:`.ContextType.arch`
         self.arch = self.get_machine_arch()
-        if isinstance(self.arch, (six.binary_type, six.text_type)):
+        if isinstance(self.arch, (bytes, six.text_type)):
             self.arch = self.arch.lower()
 
         #: :class:`dotdict` of ``name`` to ``address`` for all symbols in the ELF
@@ -295,7 +295,7 @@ class ELF(ELFFile):
             start += len(IKCFG_ST)
             stop = next(self.search(b'IKCFG_ED'))
 
-            fileobj = six.moves.StringIO(self.read(start, stop-start))
+            fileobj = six.moves.BytesIO(self.read(start, stop-start))
 
             # Python gzip throws an exception if there is non-Gzip data
             # after the Gzip stream.
