@@ -72,7 +72,7 @@ import os
 import socket
 import tempfile
 
-from six.moves import BytesIO, StringIO
+from six import BytesIO
 
 import elftools
 from elftools.common.py3compat import bytes2str
@@ -428,7 +428,7 @@ class Corefile(ELF):
 
         Corefiles can also be pulled from remote machines via SSH!
 
-        >>> s = ssh('travis', 'example.pwnme')
+        >>> s = ssh(host='example.pwnme', user='travis', password='demopass')
         >>> _ = s.set_working_directory()
         >>> elf = ELF.from_assembly(shellcraft.trap())
         >>> path = s.upload(elf.path)
